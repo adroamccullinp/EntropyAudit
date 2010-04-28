@@ -28,3 +28,8 @@ All notable changes to this project are documented here.
 ## [0.3.0] - 2022-11-02
 
 ### Added
+- Context resolver: enclosing scope, decorators, and call-site detection.
+- `report` renders markdown and JSON with identical finding sets.
+
+## [0.2.0] - 2021-03-19
+
