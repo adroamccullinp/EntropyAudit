@@ -97,3 +97,20 @@ before and after pair. The severity and CWE mapping come from `patterns.py`; the
 rationale text comes from `rationale.py`.
 
 ### EA001: predictable seed passed to a random generator
+
+Matches `random.seed(<constant>)` or `Random(<constant>)` where the argument is
+a literal constant. Class: Use of Insufficiently Random Values, CWE-330,
+severity high.
+
+Exploitability: a generator seeded with a literal produces the same sequence on
+every run. An attacker who knows or guesses the seed reproduces every value the
+program emits, including tokens, IDs, and choices meant to be unguessable.
+
+```python
+random.seed(1337)                  # before
+token = random.getrandbits(128)
+token = secrets.token_bytes(16)    # after (import secrets)
+```
+
+### EA002: random module used on a security-relevant path
+
