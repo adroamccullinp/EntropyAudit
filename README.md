@@ -61,3 +61,21 @@ pip install .
 ```
 
 Or run it in place without installing. On Windows PowerShell:
+
+```
+$env:PYTHONPATH="src"
+python -m EntropyAudit scan samples
+```
+
+On a POSIX shell:
+
+```
+PYTHONPATH=src python -m EntropyAudit scan samples
+```
+
+Installing also registers an `EntropyAudit` console script through the
+`[project.scripts]` entry in `pyproject.toml`, so `EntropyAudit scan samples`
+works once the package is on the path.
+
+## Commands
+
