@@ -186,3 +186,20 @@ stored digest can try billions of guesses per second on commodity hardware.
 Password storage needs a slow, salted function.
 
 ```python
+# before
+password_hash = hashlib.md5(password.encode("utf-8")).hexdigest()
+# after
+password_hash = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, 200000)
+```
+
+## Deciding what is security relevant
+
+The `random` module is not always a problem, and this is where EntropyAudit
+tries hardest not to cry wolf. EA002 uses two signals, both defined in
+`context.py`.
+
+The import based test asks which modules the file imports. A file that imports
+`hashlib`, `hmac`, `secrets`, `ssl`, `cryptography`, `nacl`, `Crypto`, or `jwt`
+is handling secrets. This file-level context is computed once per file and
+recorded, and it is available to weight confidence.
+
