@@ -221,3 +221,21 @@ clean sample and a dedicated unit test exercise.
 ## False positives and false negatives
 
 Stated plainly, because a scanner that hides its blind spots is worse than one
+that names them.
+
+False positives are minimised by requiring a security relevant identifier for
+EA002 and a constant literal binding for EA004 and EA005. On the bundled clean
+sample, which imports `hashlib` and `secrets` and uses `random.choice` for a
+greeting, the tool reports zero findings.
+
+False negatives are the deliberate cost of that choice. EA002 depends on
+identifier naming, so a value stored under a non descriptive name
+(`x = random.random()` later used as a token) is missed. There is no data flow
+analysis across a rename, and constant detection only sees direct literal
+bindings, so a constant assembled at runtime is not folded.
+
+## A worked scan of the bundled samples
+
+The `samples/` directory holds two hand authored test vectors:
+`vulnerable_auth.py`, built to trip every rule (EA004 twice, once for a fixed IV
+and once for a fixed nonce), and `clean_auth.py`, built to do the same work
