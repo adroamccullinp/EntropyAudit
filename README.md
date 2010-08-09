@@ -292,3 +292,21 @@ $ python -m EntropyAudit scan samples/clean_auth.py
 ```
 
 ## Output format
+
+The `scan` view prints one block per finding, then a summary line. Each field is
+fixed, so the format can be treated as a contract.
+
+| Line             | Format                                                     | Source        |
+|------------------|------------------------------------------------------------|---------------|
+| header           | `path:line:col: SEVERITY RULEID Title`                     | `report.py`   |
+| category         | `    category: <CWE class> (<CWE id>)`                     | `patterns.py` |
+| code             | `    code: <the offending source, unparsed from the AST>` | `pyscan.py`   |
+| why              | `    why: <exploitability rationale>`                      | `rationale.py`|
+| summary          | `N findings: H high, M medium, L low` (or `0 findings`)   | `report.py`   |
+
+The `report` view prints a header, a `findings by class:` block with a count per
+category, then each finding grouped under its category using the compact form
+`path:line:col [severity] RULEID Title`, and finally the same summary line.
+Findings are sorted by path, line, column, then rule id before rendering, so the
+same input tree always yields byte identical output and diffs cleanly in git.
+
