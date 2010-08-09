@@ -275,3 +275,20 @@ Use of Password Hash With Insufficient Computational Effort
 
 Use of a One-Way Hash with a Predictable Salt
     samples/vulnerable_auth.py:27:0 [medium] EA005 Fixed salt used for key derivation or hashing
+
+7 findings: 6 high, 1 medium, 0 low
+```
+
+Seven findings across six classes, with the reused nonce or key class carrying
+two. The chart below is drawn from those same counts.
+
+![Bar chart of findings by class. Reusing a nonce or key pair has two findings; the other five classes have one each. Total seven.](docs/assets/findings-by-class.svg)
+
+The clean sample produces nothing:
+
+```
+$ python -m EntropyAudit scan samples/clean_auth.py
+0 findings
+```
+
+## Output format
