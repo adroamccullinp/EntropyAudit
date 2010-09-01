@@ -10,3 +10,6 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "EntropyAudit contributors" }]
+keywords = ["security", "static-analysis", "randomness", "ast"]
+classifiers = [
+    "Programming Language :: Python :: 3.11",
