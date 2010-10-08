@@ -50,3 +50,17 @@ class Finding:
     col: int
     snippet: str
 
+    def sort_key(self) -> tuple:
+        return (self.path, self.line, self.col, self.rule_id)
+
+
+@dataclass
+class _ImportInfo:
+    """Tracks how randomness and hashing modules were imported in a file."""
+
+    # Maps a local alias back to the canonical dotted module name.
+    module_aliases: dict = field(default_factory=dict)
+    # Maps a local name bound by "from x import y as z" to "x.y".
+    name_aliases: dict = field(default_factory=dict)
+    # All top-level modules imported, for file-level security context.
+    imported_modules: set = field(default_factory=set)
