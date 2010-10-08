@@ -79,3 +79,17 @@ def scan_source(source: str, path: str) -> list[Finding]:
     findings = visitor.findings
     findings.sort(key=lambda f: f.sort_key())
     return findings
+
+
+def scan_file(path: str) -> tuple[list[Finding], str | None]:
+    """Scan a file on disk.
+
+    Returns (findings, error). error is None on success, otherwise a short
+    message describing why the file could not be scanned.
+    """
+    try:
+        with open(path, "r", encoding="utf-8") as handle:
+            source = handle.read()
+    except OSError as exc:
+        return [], f"cannot read: {exc.strerror or exc}"
+    try:
