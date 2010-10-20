@@ -137,3 +137,18 @@ def _snippet(source_line: str) -> str:
 class _Visitor(ast.NodeVisitor):
     """Walks a module tree recording findings."""
 
+    def __init__(self, path: str, imports: _ImportInfo) -> None:
+        self.path = path
+        self.imports = imports
+        self.findings: list[Finding] = []
+        self.file_secret_context = context.file_handles_secrets(imports.imported_modules)
+
+    def _add(self, rule_id: str, node: ast.AST) -> None:
+        self.findings.append(
+            Finding(
+                rule_id=rule_id,
+                path=self.path,
+                line=getattr(node, "lineno", 0),
+                col=getattr(node, "col_offset", 0),
+                snippet=self._node_snippet(node),
+            )
