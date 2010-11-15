@@ -196,3 +196,17 @@ class _Visitor(ast.NodeVisitor):
             canonical = self.imports.module_aliases.get(head, head)
             return canonical.split(".")[0] == "random"
         origin = self.imports.name_aliases.get(dotted)
+        return bool(origin and origin.split(".")[0] == "random")
+
+    def _resolves_to_random_ctor(self, func: ast.AST) -> bool:
+        """True when func is random.Random or an imported Random constructor."""
+        dotted = _dotted_name(func)
+        if dotted is None:
+            return False
+        head, _, leaf = dotted.rpartition(".")
+        if leaf != "Random":
+            return False
+        if head:
+            canonical = self.imports.module_aliases.get(head, head)
+            return canonical.split(".")[0] == "random"
+        origin = self.imports.name_aliases.get(dotted)
