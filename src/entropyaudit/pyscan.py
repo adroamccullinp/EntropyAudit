@@ -225,3 +225,17 @@ class _Visitor(ast.NodeVisitor):
         head, _, leaf = dotted.rpartition(".")
         if head:
             canonical = self.imports.module_aliases.get(head, head)
+            if canonical.split(".")[0] == "hashlib":
+                return leaf
+        else:
+            origin = self.imports.name_aliases.get(dotted)
+            if origin and origin.split(".")[0] == "hashlib":
+                return origin.split(".")[-1]
+        return None
+
+    @staticmethod
+    def _is_time_call(node: ast.AST) -> bool:
+        """True when node is a call into the time module (time.time, etc.)."""
+        if not isinstance(node, ast.Call):
+            return False
+        dotted = _dotted_name(node.func)
