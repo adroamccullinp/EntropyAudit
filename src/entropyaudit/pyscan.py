@@ -269,3 +269,17 @@ class _Visitor(ast.NodeVisitor):
         if callable_name is None:
             return
         # Fire only when the value produced by the random call flows into a
+        # security-relevant identifier. Using file-level context alone would
+        # flag safe, non-security uses of random (for example choosing a
+        # greeting) inside a module that happens to import hashlib, so the
+        # enclosing name is the deciding signal. The file secret context is
+        # recorded and available for callers that want to weight confidence,
+        # but it is not sufficient on its own.
+        if self._enclosing_name_is_security(node):
+            self._add("EA002", node)
+
+    def _enclosing_name_is_security(self, node: ast.Call) -> bool:
+        names = getattr(node, "_ea_target_names", None)
+        if not names:
+            return False
+        return context.any_identifier_security_relevant(names)
