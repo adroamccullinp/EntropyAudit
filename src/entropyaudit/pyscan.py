@@ -298,3 +298,17 @@ class _Visitor(ast.NodeVisitor):
         # Only flag as password handling when a password-like name is in scope
         # for this call (target name carried by assignment, or the file clearly
         # handles secrets and a password term appears in the target).
+        names = getattr(node, "_ea_target_names", []) or []
+        password_terms = ("password", "passwd", "pwd", "credential")
+        target_pw = any(
+            any(term in context.normalize(n) for term in password_terms) for n in names
+        )
+        if target_pw:
+            self._add("EA006", node)
+
+    def visit_Assign(self, node: ast.Assign) -> None:
+        target_names = _assign_target_names(node.targets)
+        # Attach target names to any call in the value so nested checks can use
+        # the enclosing identifier for security relevance.
+        for call in _iter_calls(node.value):
+            call._ea_target_names = target_names  # type: ignore[attr-defined]
