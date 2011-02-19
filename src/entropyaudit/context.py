@@ -8,3 +8,12 @@ code is doing something security relevant. We decide that from two signals:
 2. The identifiers near the call site: names like token, secret, password,
    nonce, salt, key, iv, session, csrf, otp, and auth.
 
+This module holds the vocabulary and the matching helpers. Keeping the naming
+rules here means pyscan.py stays focused on tree walking.
+"""
+
+from __future__ import annotations
+
+import re
+
+
