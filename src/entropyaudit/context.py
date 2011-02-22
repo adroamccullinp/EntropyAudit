@@ -35,3 +35,12 @@ SECURITY_TERMS = (
     "auth",
     "cookie",
     "apikey",
+    "credential",
+    "cipher",
+    "encrypt",
+    "sign",
+    "hmac",
+)
+
+# Modules whose presence in a file marks the file as handling secrets.
+SECURITY_IMPORTS = (
