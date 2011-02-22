@@ -53,3 +53,12 @@ SECURITY_IMPORTS = (
     "Crypto",
     "jwt",
 )
+
+_WORD = re.compile(r"[a-z0-9]+")
+
+
+def normalize(identifier: str) -> str:
+    """Lowercase an identifier and strip underscores for term matching."""
+    return identifier.replace("_", "").lower()
+
+
