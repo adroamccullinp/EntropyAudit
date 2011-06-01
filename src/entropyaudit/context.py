@@ -80,3 +80,12 @@ def identifier_is_security_relevant(identifier: str) -> bool:
             if term in tokens:
                 return True
         elif term in normalized:
+            return True
+    return False
+
+
+def _split_tokens(identifier: str) -> set[str]:
+    """Split an identifier into lowercase word tokens.
+
+    Handles snake_case and camelCase. "session_ivValue" yields session, iv,
+    value.
