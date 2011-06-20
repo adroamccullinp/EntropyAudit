@@ -44,3 +44,11 @@ RULES = {
         cwe="CWE-338",
     ),
     "EA003": Rule(
+        rule_id="EA003",
+        title="Generator seeded from wall-clock time",
+        severity="high",
+        category="Predictable Seed in PRNG",
+        cwe="CWE-337",
+    ),
+    "EA004": Rule(
+        rule_id="EA004",
