@@ -52,3 +52,10 @@ RULES = {
     ),
     "EA004": Rule(
         rule_id="EA004",
+        title="Reused nonce or IV bound to a constant",
+        severity="high",
+        category="Reusing a Nonce or Key Pair in Encryption",
+        cwe="CWE-323",
+    ),
+    "EA005": Rule(
+        rule_id="EA005",
