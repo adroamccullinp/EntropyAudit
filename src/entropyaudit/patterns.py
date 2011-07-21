@@ -59,3 +59,11 @@ RULES = {
     ),
     "EA005": Rule(
         rule_id="EA005",
+        title="Fixed salt used for key derivation or hashing",
+        severity="medium",
+        category="Use of a One-Way Hash with a Predictable Salt",
+        cwe="CWE-760",
+    ),
+    "EA006": Rule(
+        rule_id="EA006",
+        title="Weak hash used for password handling",
