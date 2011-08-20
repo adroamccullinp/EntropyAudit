@@ -9,3 +9,8 @@ from __future__ import annotations
 
 
 # One entry per rule id in patterns.RULES. Each explains the concrete
+# exploitability, not just the label. Kept in plain sentences, no em dashes.
+RATIONALE = {
+    "EA001": (
+        "A generator seeded with a literal constant produces the same sequence "
+        "on every run. An attacker who knows or guesses the seed can reproduce "
