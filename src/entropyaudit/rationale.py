@@ -24,3 +24,8 @@ RATIONALE = {
         "recover the internal state and predict all future outputs. When the "
         "value guards access, such as a token, password, session id, salt, or "
         "nonce, use secrets or os.urandom instead."
+    ),
+    "EA003": (
+        "Seeding from the current time makes the sequence depend only on when "
+        "the program started. The search space is small, often a few million "
+        "values across a plausible window, so an attacker can brute force the "
