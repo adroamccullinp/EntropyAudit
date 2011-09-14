@@ -39,3 +39,8 @@ RATIONALE = {
         "keystream and recover plaintext. Nonces must be unique per message and "
         "IVs must be random."
     ),
+    "EA005": (
+        "A fixed salt means identical inputs hash to identical digests across "
+        "all users and installs. This defeats the purpose of salting: an "
+        "attacker can precompute one rainbow table and reuse it everywhere, and "
+        "identical passwords become visibly identical. Generate a fresh random "
