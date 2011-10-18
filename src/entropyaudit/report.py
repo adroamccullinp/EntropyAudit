@@ -18,3 +18,13 @@ def _sorted_findings(findings: list[Finding]) -> list[Finding]:
 
 
 def render_scan(findings: list[Finding]) -> list[str]:
+    """Render the scan view: one block per finding with its rationale.
+
+    Returns a list of lines without trailing newlines.
+    """
+    lines: list[str] = []
+    for finding in _sorted_findings(findings):
+        rule = patterns.get_rule(finding.rule_id)
+        lines.append(
+            f"{finding.path}:{finding.line}:{finding.col}: "
+            f"{rule.severity.upper()} {finding.rule_id} {rule.title}"
