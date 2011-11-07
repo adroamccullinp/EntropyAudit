@@ -25,3 +25,15 @@ def _iter_python_files(root: str):
     """Yield Python file paths under root in sorted, deterministic order.
 
     If root is a single file it is yielded directly.
+    """
+    if os.path.isfile(root):
+        yield root
+        return
+    for dirpath, dirnames, filenames in os.walk(root):
+        dirnames.sort()
+        for name in sorted(filenames):
+            if name.endswith(".py"):
+                yield os.path.join(dirpath, name)
+
+
+def _normalize_path(path: str) -> str:
