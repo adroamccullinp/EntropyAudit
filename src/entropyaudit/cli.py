@@ -62,3 +62,16 @@ def collect_findings(root: str) -> tuple[list[Finding], list[str]]:
                     rule_id=finding.rule_id,
                     path=display,
                     line=finding.line,
+                    col=finding.col,
+                    snippet=finding.snippet,
+                )
+            )
+    findings.sort(key=lambda f: f.sort_key())
+    return findings, errors
+
+
+def _cmd_scan(args: argparse.Namespace) -> int:
+    findings, errors = collect_findings(args.path)
+    for line in report.render_scan(findings):
+        print(line)
+    for error in errors:
