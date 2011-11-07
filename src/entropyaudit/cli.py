@@ -75,3 +75,15 @@ def _cmd_scan(args: argparse.Namespace) -> int:
     for line in report.render_scan(findings):
         print(line)
     for error in errors:
+        print(f"error: {error}", file=sys.stderr)
+    return 1 if findings else 0
+
+
+def _cmd_report(args: argparse.Namespace) -> int:
+    findings, errors = collect_findings(args.path)
+    root_display = _normalize_path(args.path)
+    for line in report.render_report(findings, root_display):
+        print(line)
+    for error in errors:
+        print(f"error: {error}", file=sys.stderr)
+    return 1 if findings else 0
