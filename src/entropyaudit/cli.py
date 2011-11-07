@@ -37,3 +37,16 @@ def _iter_python_files(root: str):
 
 
 def _normalize_path(path: str) -> str:
+    """Return a forward-slash relative-ish path for stable output across OSes."""
+    return path.replace(os.sep, "/")
+
+
+def collect_findings(root: str) -> tuple[list[Finding], list[str]]:
+    """Scan root and return (findings, errors).
+
+    Findings carry normalized paths so output is identical on Windows and POSIX.
+    errors is a list of human readable messages for files that could not be
+    scanned.
+    """
+    findings: list[Finding] = []
+    errors: list[str] = []
