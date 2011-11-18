@@ -30,3 +30,16 @@ def _rule_ids(findings):
 class VulnerableSampleTests(unittest.TestCase):
     def setUp(self):
         findings, errors = cli.collect_findings(VULN)
+        self.assertEqual(errors, [], "vulnerable sample should scan cleanly")
+        self.findings = findings
+
+    def test_vulnerable_sample_has_findings(self):
+        self.assertTrue(self.findings, "vulnerable sample must produce findings")
+
+    def test_expected_rule_coverage(self):
+        ids = set(f.rule_id for f in self.findings)
+        for expected in ("EA001", "EA002", "EA003", "EA004", "EA005", "EA006"):
+            self.assertIn(expected, ids, f"{expected} should fire on the vector")
+
+    def test_nonce_and_iv_both_flagged(self):
+        ea004 = [f for f in self.findings if f.rule_id == "EA004"]
