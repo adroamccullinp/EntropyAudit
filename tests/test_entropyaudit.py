@@ -83,3 +83,16 @@ class DetectionUnitTests(unittest.TestCase):
         source = (
             "import random\n"
             "auth_token = random.getrandbits(64)\n"
+        )
+        findings = scan_source(source, "s.py")
+        self.assertEqual(_rule_ids(findings), ["EA002"])
+
+    def test_fixed_salt(self):
+        findings = scan_source("password_salt = b'abc'\n", "s.py")
+        self.assertEqual(_rule_ids(findings), ["EA005"])
+
+    def test_constant_nonce(self):
+        findings = scan_source("message_nonce = b'abc'\n", "s.py")
+        self.assertEqual(_rule_ids(findings), ["EA004"])
+
+    def test_weak_password_hash(self):
