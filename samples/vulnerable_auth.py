@@ -10,3 +10,11 @@ import hashlib
 import random
 import time
 
+
+# EA001: generator seeded from a literal constant.
+random.seed(1337)
+
+# EA003: generator seeded from wall-clock time.
+random.seed(time.time())
+
+# EA004: an IV bound to a constant, reused on every encryption.
