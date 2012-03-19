@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Palette reason: the subject is auditing weak randomness in security code.
+  One neutral steel grey (#475569) carries the ordinary finding bars because
+  every bar is a real count, not a mood. One accent, amber #b45309, marks the
+  single tallest class so the eye lands first on the worst category. Amber is
+  the conventional warning colour, which matches "look here". Neutrals (ink
+  text, hairlines, panel) do not count toward the two-colour budget.
+
+  Numbers: produced by running `python -m entropyaudit report samples` in this
