@@ -53,3 +53,11 @@
         font-size="12" fill="#0f172a">1</text>
 
   <!-- Row 3: Weak PRNG on security path, count 1 -->
+  <text x="240" y="158" text-anchor="end"
+        font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
+        font-size="12" fill="#0f172a">Weak PRNG on security path</text>
+  <rect x="248" y="146" width="96" height="20" rx="3" fill="#475569"/>
+  <text x="352" y="161"
+        font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
+        font-size="12" fill="#0f172a">1</text>
+
