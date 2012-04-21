@@ -6,3 +6,8 @@
   attention. The split says the tool reads entropy and reports on it. One
   accent, one ink, no third colour. No mark is added because the tool's core
   data structure is a list of findings, which a wordmark represents honestly
+  without inventing geometry.
+
+  Motion: none.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 96" role="img"
