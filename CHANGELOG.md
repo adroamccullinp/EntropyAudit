@@ -22,3 +22,4 @@ All notable changes to this project are documented here.
 - Severity tiers mapped from CWE-style pattern classes.
 
 ### Changed
+- AST walk rewritten for 3.11 (`ast.Str` removal); string entropy scan now
