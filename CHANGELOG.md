@@ -27,3 +27,4 @@ All notable changes to this project are documented here.
 
 ## [0.3.0] - 2022-11-02
 
+### Added
