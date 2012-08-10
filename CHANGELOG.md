@@ -32,3 +32,4 @@ All notable changes to this project are documented here.
 - `report` renders markdown and JSON with identical finding sets.
 
 ## [0.2.0] - 2021-03-19
+
