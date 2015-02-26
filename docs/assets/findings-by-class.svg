@@ -88,3 +88,10 @@
         font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
         font-size="12" fill="#0f172a">1</text>
 
+  <!-- X axis line and ticks -->
+  <line x1="248" y1="288" x2="440" y2="288" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="248" y1="288" x2="248" y2="294" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="344" y1="288" x2="344" y2="294" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="440" y1="288" x2="440" y2="294" stroke="#94a3b8" stroke-width="1"/>
+  <text x="248" y="308" text-anchor="middle"
+        font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
