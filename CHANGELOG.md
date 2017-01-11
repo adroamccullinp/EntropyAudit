@@ -18,3 +18,8 @@ All notable changes to this project are documented here.
 ## [0.4.0] - 2024-07-30
 
 ### Added
+- Nonce-hygiene patterns: reused counters, static IVs, `os.urandom` misuse.
+- Severity tiers mapped from CWE-style pattern classes.
+
+### Changed
+- AST walk rewritten for 3.11 (`ast.Str` removal); string entropy scan now
