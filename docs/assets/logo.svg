@@ -4,3 +4,6 @@
   name at its morpheme boundary: "entropy" in neutral ink #0f172a, "audit" in
   the amber accent #b45309 that the diagram uses to mark the class needing
   attention. The split says the tool reads entropy and reports on it. One
+  accent, one ink, no third colour. No mark is added because the tool's core
+  data structure is a list of findings, which a wordmark represents honestly
+  without inventing geometry.
