@@ -132,3 +132,21 @@ session_token = secrets.token_hex(16)      # after (import secrets)
 
 Matches `random.seed(time.time())` or seeding from any `time.*` call. This rule
 takes precedence over EA001 because the exploit path is different: the seed is
+not a fixed literal but a small, guessable window. Class: Predictable Seed in
+PRNG, CWE-337, severity high.
+
+Exploitability: seeding from the current time makes the sequence depend only on
+when the program started. The search space is often a few million values across
+a plausible window, so an attacker can brute force the seed offline.
+
+```python
+random.seed(time.time())          # before
+rng = secrets.SystemRandom()      # after (import secrets)
+```
+
+### EA004: reused nonce or IV bound to a constant
+
+Matches a module-level assignment to a `nonce` or `iv` named target bound to a
+constant `bytes` or `str` literal. `iv` is matched as a whole token so it does
+not fire on words like "give". Class: Reusing a Nonce or Key Pair in Encryption,
+CWE-323, severity high.
