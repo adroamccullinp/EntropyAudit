@@ -239,3 +239,21 @@ bindings, so a constant assembled at runtime is not folded.
 The `samples/` directory holds two hand authored test vectors:
 `vulnerable_auth.py`, built to trip every rule (EA004 twice, once for a fixed IV
 and once for a fixed nonce), and `clean_auth.py`, built to do the same work
+correctly and produce nothing.
+
+The following was captured by running the command shown against `samples/` in
+this repository. It is pasted verbatim.
+
+```
+$ python -m EntropyAudit report samples
+EntropyAudit report for samples
+===============================
+
+findings by class:
+      1  Predictable Seed in PRNG
+      2  Reusing a Nonce or Key Pair in Encryption
+      1  Use of Cryptographically Weak PRNG
+      1  Use of Insufficiently Random Values
+      1  Use of Password Hash With Insufficient Computational Effort
+      1  Use of a One-Way Hash with a Predictable Salt
+
