@@ -123,3 +123,17 @@ def _dotted_name(node: ast.AST) -> str | None:
     current = node
     while isinstance(current, ast.Attribute):
         parts.append(current.attr)
+        current = current.value
+    if isinstance(current, ast.Name):
+        parts.append(current.id)
+        return ".".join(reversed(parts))
+    return None
+
+
+def _snippet(source_line: str) -> str:
+    return source_line.strip()
+
+
+class _Visitor(ast.NodeVisitor):
+    """Walks a module tree recording findings."""
+
