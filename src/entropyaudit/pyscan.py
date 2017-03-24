@@ -152,3 +152,17 @@ class _Visitor(ast.NodeVisitor):
                 col=getattr(node, "col_offset", 0),
                 snippet=self._node_snippet(node),
             )
+        )
+
+    def _node_snippet(self, node: ast.AST) -> str:
+        try:
+            return ast.unparse(node)
+        except Exception:
+            return ""
+
+    def _resolves_to_random(self, func: ast.AST) -> str | None:
+        """If func is a call into the random module, return the callable name.
+
+        Handles: import random; random.random(), the aliased form, and
+        from random import randint style names. Returns the leaf callable name
+        (for example "randint") or None.
