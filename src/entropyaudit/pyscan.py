@@ -239,3 +239,18 @@ class _Visitor(ast.NodeVisitor):
         if not isinstance(node, ast.Call):
             return False
         dotted = _dotted_name(node.func)
+        if dotted is None:
+            return False
+        return dotted.split(".")[0] == "time" or dotted.startswith("time.")
+
+    def visit_Call(self, node: ast.Call) -> None:
+        self._check_seed(node)
+        self._check_weak_prng(node)
+        self._check_weak_hash(node)
+        self.generic_visit(node)
+
+    def _check_seed(self, node: ast.Call) -> None:
+        is_seed = self._resolves_to_random_seed(node.func)
+        is_ctor = self._resolves_to_random_ctor(node.func)
+        if not (is_seed or is_ctor):
+            return
