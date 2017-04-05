@@ -17,3 +17,12 @@ from __future__ import annotations
 import re
 
 
+# Substrings that mark an identifier as security relevant. Matched case
+# insensitively against a normalized identifier (underscores removed).
+SECURITY_TERMS = (
+    "token",
+    "secret",
+    "password",
+    "passwd",
+    "nonce",
+    "salt",
