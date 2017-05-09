@@ -21,3 +21,11 @@ class Rule:
 
     rule_id: str
     title: str
+    severity: str
+    category: str  # CWE-style category label
+    cwe: str
+
+
+# Rule identifiers are referenced by pyscan.py when it records a finding and by
+# rationale.py when it renders the explanation. Keep them stable.
+RULES = {
