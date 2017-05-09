@@ -14,3 +14,10 @@ from dataclasses import dataclass
 
 SEVERITY_ORDER = {"high": 0, "medium": 1, "low": 2}
 
+
+@dataclass(frozen=True)
+class Rule:
+    """A single detection rule."""
+
+    rule_id: str
+    title: str
