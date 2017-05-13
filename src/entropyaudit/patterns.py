@@ -37,3 +37,10 @@ RULES = {
         cwe="CWE-330",
     ),
     "EA002": Rule(
+        rule_id="EA002",
+        title="random module used on a security-relevant path",
+        severity="high",
+        category="Use of Cryptographically Weak PRNG",
+        cwe="CWE-338",
+    ),
+    "EA003": Rule(
