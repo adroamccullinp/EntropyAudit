@@ -14,3 +14,8 @@ RATIONALE = {
     "EA001": (
         "A generator seeded with a literal constant produces the same sequence "
         "on every run. An attacker who knows or guesses the seed can reproduce "
+        "every value the program will emit, including tokens, IDs, and choices "
+        "meant to be unguessable. Seeding must come from an unpredictable "
+        "source, and for security values use the secrets module."
+    ),
+    "EA002": (
