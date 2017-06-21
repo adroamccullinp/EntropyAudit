@@ -28,3 +28,13 @@ def render_scan(findings: list[Finding]) -> list[str]:
         lines.append(
             f"{finding.path}:{finding.line}:{finding.col}: "
             f"{rule.severity.upper()} {finding.rule_id} {rule.title}"
+        )
+        lines.append(f"    category: {rule.category} ({rule.cwe})")
+        lines.append(f"    code: {finding.snippet}")
+        lines.append(f"    why: {rationale.explain(finding.rule_id)}")
+        lines.append("")
+    lines.append(_summary_line(findings))
+    return lines
+
+
+def render_report(findings: list[Finding], root: str) -> list[str]:
