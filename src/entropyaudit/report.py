@@ -58,3 +58,13 @@ def render_report(findings: list[Finding], root: str) -> list[str]:
     for finding in _sorted_findings(findings):
         rule = patterns.get_rule(finding.rule_id)
         by_cat.setdefault(rule.category, []).append(finding)
+
+    for category in sorted(by_cat):
+        lines.append(category)
+        for finding in by_cat[category]:
+            rule = patterns.get_rule(finding.rule_id)
+            lines.append(
+                f"    {finding.path}:{finding.line}:{finding.col} "
+                f"[{rule.severity}] {finding.rule_id} {rule.title}"
+            )
+        lines.append("")
