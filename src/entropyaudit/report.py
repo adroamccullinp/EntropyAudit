@@ -48,3 +48,13 @@ def render_report(findings: list[Finding], root: str) -> list[str]:
     lines.append("=" * len(lines[0]))
     lines.append("")
 
+    counts = category_counts(findings)
+    lines.append("findings by class:")
+    for category in sorted(counts):
+        lines.append(f"    {counts[category]:>3}  {category}")
+    lines.append("")
+
+    by_cat: dict[str, list[Finding]] = {}
+    for finding in _sorted_findings(findings):
+        rule = patterns.get_rule(finding.rule_id)
+        by_cat.setdefault(rule.category, []).append(finding)
