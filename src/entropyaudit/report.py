@@ -38,3 +38,13 @@ def render_scan(findings: list[Finding]) -> list[str]:
 
 
 def render_report(findings: list[Finding], root: str) -> list[str]:
+    """Render a grouped report suitable for a human reviewer.
+
+    Groups findings by CWE-style category and counts them, then lists each
+    finding compactly under its category.
+    """
+    lines: list[str] = []
+    lines.append(f"entropyaudit report for {root}")
+    lines.append("=" * len(lines[0]))
+    lines.append("")
+
