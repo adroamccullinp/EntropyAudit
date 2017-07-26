@@ -68,3 +68,13 @@ def render_report(findings: list[Finding], root: str) -> list[str]:
                 f"[{rule.severity}] {finding.rule_id} {rule.title}"
             )
         lines.append("")
+
+    lines.append(_summary_line(findings))
+    return lines
+
+
+def category_counts(findings: list[Finding]) -> dict[str, int]:
+    """Return a mapping of CWE-style category to finding count."""
+    counter: Counter[str] = Counter()
+    for finding in findings:
+        rule = patterns.get_rule(finding.rule_id)
