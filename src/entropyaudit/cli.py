@@ -13,3 +13,15 @@ with 2 on argument errors, which matches the standard.
 
 from __future__ import annotations
 
+import argparse
+import os
+import sys
+
+from . import __version__, patterns, rationale, report
+from .pyscan import Finding, scan_file
+
+
+def _iter_python_files(root: str):
+    """Yield Python file paths under root in sorted, deterministic order.
+
+    If root is a single file it is yielded directly.
