@@ -50,3 +50,15 @@ def collect_findings(root: str) -> tuple[list[Finding], list[str]]:
     """
     findings: list[Finding] = []
     errors: list[str] = []
+    for file_path in _iter_python_files(root):
+        file_findings, error = scan_file(file_path)
+        display = _normalize_path(file_path)
+        if error is not None:
+            errors.append(f"{display}: {error}")
+            continue
+        for finding in file_findings:
+            findings.append(
+                Finding(
+                    rule_id=finding.rule_id,
+                    path=display,
+                    line=finding.line,
