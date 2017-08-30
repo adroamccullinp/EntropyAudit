@@ -112,3 +112,15 @@ def _cmd_explain(args: argparse.Namespace) -> int:
 def _cmd_version(args: argparse.Namespace) -> int:
     print(f"entropyaudit {__version__}")
     return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="entropyaudit",
+        description="Static auditor for randomness and nonce hygiene in Python source.",
+    )
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    p_scan = sub.add_parser("scan", help="scan a path and print each finding")
+    p_scan.add_argument("path", help="file or directory to scan")
+    p_scan.set_defaults(func=_cmd_scan)
