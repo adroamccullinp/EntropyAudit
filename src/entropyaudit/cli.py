@@ -99,3 +99,16 @@ def _cmd_explain(args: argparse.Namespace) -> int:
         return 0
     rule_id = args.rule_id.upper()
     try:
+        rule = patterns.get_rule(rule_id)
+    except KeyError:
+        print(f"error: unknown rule {rule_id}", file=sys.stderr)
+        return 2
+    print(f"{rule.rule_id} [{rule.severity}] {rule.title}")
+    print(f"category: {rule.category} ({rule.cwe})")
+    print(f"why: {rationale.explain(rule.rule_id)}")
+    return 0
+
+
+def _cmd_version(args: argparse.Namespace) -> int:
+    print(f"entropyaudit {__version__}")
+    return 0
