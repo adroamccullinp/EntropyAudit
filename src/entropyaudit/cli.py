@@ -87,3 +87,15 @@ def _cmd_report(args: argparse.Namespace) -> int:
     for error in errors:
         print(f"error: {error}", file=sys.stderr)
     return 1 if findings else 0
+
+
+def _cmd_explain(args: argparse.Namespace) -> int:
+    if args.rule_id is None:
+        for rule in patterns.all_rules_sorted():
+            print(f"{rule.rule_id} [{rule.severity}] {rule.title}")
+            print(f"    category: {rule.category} ({rule.cwe})")
+            print(f"    why: {rationale.explain(rule.rule_id)}")
+            print("")
+        return 0
+    rule_id = args.rule_id.upper()
+    try:
