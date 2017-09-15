@@ -17,3 +17,16 @@ if _SRC not in sys.path:
 from entropyaudit import cli, patterns, rationale  # noqa: E402
 from entropyaudit.pyscan import scan_source  # noqa: E402
 
+
+SAMPLES = os.path.join(_ROOT, "samples")
+VULN = os.path.join(SAMPLES, "vulnerable_auth.py")
+CLEAN = os.path.join(SAMPLES, "clean_auth.py")
+
+
+def _rule_ids(findings):
+    return sorted(f.rule_id for f in findings)
+
+
+class VulnerableSampleTests(unittest.TestCase):
+    def setUp(self):
+        findings, errors = cli.collect_findings(VULN)
