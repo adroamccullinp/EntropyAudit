@@ -57,3 +57,16 @@ class CleanSampleTests(unittest.TestCase):
             findings, [], f"clean sample must be free of findings, got {_rule_ids(findings)}"
         )
 
+    def test_non_security_random_not_flagged(self):
+        # random.choice for a greeting must not trip EA002.
+        source = (
+            "import random\n"
+            "def pick():\n"
+            "    greeting = random.choice(['hi', 'hello'])\n"
+            "    return greeting\n"
+        )
+        findings = scan_source(source, "inline.py")
+        self.assertEqual(findings, [])
+
+
+class DetectionUnitTests(unittest.TestCase):
