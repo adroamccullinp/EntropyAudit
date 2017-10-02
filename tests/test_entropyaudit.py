@@ -110,3 +110,16 @@ class DetectionUnitTests(unittest.TestCase):
         )
         findings = scan_source(source, "s.py")
         self.assertEqual(_rule_ids(findings), ["EA006"])
+
+    def test_aliased_random_import(self):
+        source = (
+            "import random as rng\n"
+            "session_key = rng.randint(0, 9)\n"
+        )
+        findings = scan_source(source, "s.py")
+        self.assertEqual(_rule_ids(findings), ["EA002"])
+
+    def test_bool_and_none_not_flagged_as_nonce(self):
+        # A nonce name bound to None or a bool is not a constant secret.
+        findings = scan_source("nonce = None\nuse_iv = True\n", "s.py")
+        self.assertEqual(findings, [])
