@@ -96,3 +96,17 @@ class DetectionUnitTests(unittest.TestCase):
         self.assertEqual(_rule_ids(findings), ["EA004"])
 
     def test_weak_password_hash(self):
+        source = (
+            "import hashlib\n"
+            "password_hash = hashlib.md5(b'x').hexdigest()\n"
+        )
+        findings = scan_source(source, "s.py")
+        self.assertEqual(_rule_ids(findings), ["EA006"])
+
+    def test_hashlib_new_string_form(self):
+        source = (
+            "import hashlib\n"
+            "password_hash = hashlib.new('sha1', b'x')\n"
+        )
+        findings = scan_source(source, "s.py")
+        self.assertEqual(_rule_ids(findings), ["EA006"])
