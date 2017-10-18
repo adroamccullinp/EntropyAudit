@@ -10,3 +10,11 @@ meaningful negative test.
 import hashlib
 import secrets
 
+
+def make_session_token():
+    # Correct: cryptographically strong token from the secrets module.
+    session_token = secrets.token_hex(32)
+    return session_token
+
+
+def generate_nonce():
