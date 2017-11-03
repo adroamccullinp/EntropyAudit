@@ -8,3 +8,12 @@
   text, hairlines, panel) do not count toward the two-colour budget.
 
   Numbers: produced by running `python -m entropyaudit report samples` in this
+  repository. Total 7 findings across 6 classes. Counts per class are printed
+  in the "findings by class" block of that command's output.
+
+  Motion: none. A static bar chart is the correct professional default.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 360" role="img"
+     aria-labelledby="title desc" width="520" height="360">
+  <title id="title">entropyaudit findings by class</title>
+  <desc>Horizontal bar chart of findings from scanning the samples directory.
