@@ -14,3 +14,4 @@ All notable changes to this project are documented here.
 ### Changed
 - Context extraction keeps enclosing function and class, so report rows point
   at reviewable units instead of bare line numbers.
+
