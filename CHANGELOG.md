@@ -12,3 +12,4 @@ All notable changes to this project are documented here.
 - Findings-by-class chart in docs; sample tree extended with a clean auth module.
 
 ### Changed
+- Context extraction keeps enclosing function and class, so report rows point
