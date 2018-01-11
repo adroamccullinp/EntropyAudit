@@ -11,3 +11,4 @@ All notable changes to this project are documented here.
   grounded in the pattern class, not a code reference.
 - Findings-by-class chart in docs; sample tree extended with a clean auth module.
 
+### Changed
