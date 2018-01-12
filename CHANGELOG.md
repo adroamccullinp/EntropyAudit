@@ -16,3 +16,4 @@ All notable changes to this project are documented here.
   at reviewable units instead of bare line numbers.
 
 ## [0.4.0] - 2024-07-30
+
