@@ -21,3 +21,4 @@ All notable changes to this project are documented here.
 - Nonce-hygiene patterns: reused counters, static IVs, `os.urandom` misuse.
 - Severity tiers mapped from CWE-style pattern classes.
 
+### Changed
