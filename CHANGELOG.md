@@ -25,3 +25,4 @@ All notable changes to this project are documented here.
 - AST walk rewritten for 3.11 (`ast.Str` removal); string entropy scan now
   tokenises f-strings separately.
 
+## [0.3.0] - 2022-11-02
