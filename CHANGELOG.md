@@ -34,3 +34,4 @@ All notable changes to this project are documented here.
 ## [0.2.0] - 2021-03-19
 
 ### Added
+- Pattern table: hardcoded keys, weak PRNGs (`random` for secrets), short
