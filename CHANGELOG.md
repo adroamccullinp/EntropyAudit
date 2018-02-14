@@ -38,3 +38,4 @@ All notable changes to this project are documented here.
   salts, IV reuse.
 - Exit codes for CI gating (fail on high severity).
 
+## [0.1.0] - 2019-09-08
