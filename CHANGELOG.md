@@ -35,3 +35,4 @@ All notable changes to this project are documented here.
 
 ### Added
 - Pattern table: hardcoded keys, weak PRNGs (`random` for secrets), short
+  salts, IV reuse.
