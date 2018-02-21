@@ -42,3 +42,4 @@ All notable changes to this project are documented here.
 
 ### Added
 - First CLI: `entropyaudit scan <tree>` with per-file findings.
+- Shannon entropy scan for literal strings.
