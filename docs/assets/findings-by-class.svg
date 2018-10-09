@@ -74,3 +74,10 @@
   <text x="240" y="230" text-anchor="end"
         font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
         font-size="12" fill="#0f172a">Predictable salt</text>
+  <rect x="248" y="218" width="96" height="20" rx="3" fill="#475569"/>
+  <text x="352" y="233"
+        font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
+        font-size="12" fill="#0f172a">1</text>
+
+  <!-- Row 6: Weak password hash, count 1 -->
+  <text x="240" y="266" text-anchor="end"
