@@ -197,3 +197,31 @@ password_hash = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, 20
 The `random` module is not always a problem, and this is where EntropyAudit
 tries hardest not to cry wolf. EA002 uses two signals, both defined in
 `context.py`.
+
+The import based test asks which modules the file imports. A file that imports
+`hashlib`, `hmac`, `secrets`, `ssl`, `cryptography`, `nacl`, `Crypto`, or `jwt`
+is handling secrets. This file-level context is computed once per file and
+recorded, and it is available to weight confidence.
+
+The identifier based test asks whether the value produced by a `random` call
+flows into a security relevant name. The vocabulary is: `token`, `secret`,
+`password`, `passwd`, `nonce`, `salt`, `iv`, `key`, `session`, `csrf`, `xsrf`,
+`otp`, `auth`, `cookie`, `apikey`, `credential`, `cipher`, `encrypt`, `sign`,
+and `hmac`. Long terms match as substrings; short terms (`iv`, `key`, `otp`) are
+matched as whole tokens split on underscores and camelCase boundaries, so
+`monkey` does not match `key` and `give` does not match `iv`.
+
+The identifier is the deciding signal for EA002, not the file context. A module
+that imports `hashlib` for one function and also picks a greeting with
+`random.choice` should not have that greeting flagged. Because the enclosing
+assignment target (`greeting`) carries no security term, the harmless
+`random.choice(['hi', 'hello'])` is left alone. That is precisely the case the
+clean sample and a dedicated unit test exercise.
+
+## False positives and false negatives
+
+Stated plainly, because a scanner that hides its blind spots is worse than one
+that names them.
+
+False positives are minimised by requiring a security relevant identifier for
+EA002 and a constant literal binding for EA004 and EA005. On the bundled clean
