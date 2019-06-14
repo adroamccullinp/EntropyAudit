@@ -327,3 +327,48 @@ class _Visitor(ast.NodeVisitor):
         value = getattr(node, "value", None)
         if not isinstance(value, ast.Constant):
             return
+        if isinstance(value.value, bool) or value.value is None:
+            return
+        for name in target_names:
+            normalized = context.normalize(name)
+            if "nonce" in normalized or _is_iv_token(name):
+                self._add("EA004", node)
+                break
+            if "salt" in normalized:
+                self._add("EA005", node)
+                break
+
+
+def _is_iv_token(identifier: str) -> bool:
+    spaced = _camel_to_spaces(identifier).replace("_", " ").lower().split()
+    return "iv" in spaced
+
+
+def _camel_to_spaces(identifier: str) -> str:
+    import re
+
+    return re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", identifier)
+
+
+def _assign_target_names(targets: list[ast.AST]) -> list[str]:
+    names: list[str] = []
+    for target in targets:
+        if isinstance(target, ast.Name):
+            names.append(target.id)
+        elif isinstance(target, ast.Attribute):
+            names.append(target.attr)
+        elif isinstance(target, (ast.Tuple, ast.List)):
+            for elt in target.elts:
+                if isinstance(elt, ast.Name):
+                    names.append(elt.id)
+                elif isinstance(elt, ast.Attribute):
+                    names.append(elt.attr)
+    return names
+
+
+def _iter_calls(value: ast.AST | None):
+    if value is None:
+        return
+    for node in ast.walk(value):
+        if isinstance(node, ast.Call):
+# review note
