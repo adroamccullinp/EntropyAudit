@@ -81,3 +81,32 @@ works once the package is on the path.
 
 Four subcommands. Each takes a file or a directory; a directory is walked in
 sorted, deterministic order and every `.py` file under it is scanned.
+
+| Command   | Argument    | What it prints                                                 |
+|-----------|-------------|----------------------------------------------------------------|
+| `scan`    | path        | One block per finding: location, category, code, and rationale.|
+| `report`  | path        | A grouped report: counts by class, then findings under each.   |
+| `explain` | rule id (optional) | The rationale for one rule, or all six when omitted.    |
+| `version` | none        | The package version string.                                    |
+
+## The rule set
+
+Six rules, EA001 through EA006. Each entry below states what the rule matches in
+the AST, the CWE class it maps to, why the pattern is exploitable, and a short
+before and after pair. The severity and CWE mapping come from `patterns.py`; the
+rationale text comes from `rationale.py`.
+
+### EA001: predictable seed passed to a random generator
+
+Matches `random.seed(<constant>)` or `Random(<constant>)` where the argument is
+a literal constant. Class: Use of Insufficiently Random Values, CWE-330,
+severity high.
+
+Exploitability: a generator seeded with a literal produces the same sequence on
+every run. An attacker who knows or guesses the seed reproduces every value the
+program emits, including tokens, IDs, and choices meant to be unguessable.
+
+```python
+random.seed(1337)                  # before
+token = random.getrandbits(128)
+token = secrets.token_bytes(16)    # after (import secrets)
