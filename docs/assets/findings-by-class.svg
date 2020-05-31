@@ -20,3 +20,9 @@
     Seven findings across six classes. Reusing a nonce or key pair has two
     findings; the other five classes have one each. Data captured by running
     the entropyaudit report command.</desc>
+
+  <rect x="0" y="0" width="520" height="360" fill="#ffffff"/>
+
+  <!-- Heading -->
+  <text x="16" y="28"
+        font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
