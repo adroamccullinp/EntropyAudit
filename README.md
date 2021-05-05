@@ -53,3 +53,31 @@ on, while "Mersenne Twister state can be recovered from a few hundred outputs,
 so use `secrets`" tells them exactly what to change and why.
 
 ## Install
+
+Install from the project directory:
+
+```
+pip install .
+```
+
+Or run it in place without installing. On Windows PowerShell:
+
+```
+$env:PYTHONPATH="src"
+python -m EntropyAudit scan samples
+```
+
+On a POSIX shell:
+
+```
+PYTHONPATH=src python -m EntropyAudit scan samples
+```
+
+Installing also registers an `EntropyAudit` console script through the
+`[project.scripts]` entry in `pyproject.toml`, so `EntropyAudit scan samples`
+works once the package is on the path.
+
+## Commands
+
+Four subcommands. Each takes a file or a directory; a directory is walked in
+sorted, deterministic order and every `.py` file under it is scanned.
