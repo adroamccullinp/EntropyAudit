@@ -110,3 +110,32 @@ program emits, including tokens, IDs, and choices meant to be unguessable.
 random.seed(1337)                  # before
 token = random.getrandbits(128)
 token = secrets.token_bytes(16)    # after (import secrets)
+```
+
+### EA002: random module used on a security-relevant path
+
+Matches a call into the `random` module (`random`, `randint`, `randrange`,
+`choice`, `choices`, `sample`, `shuffle`, `uniform`, `getrandbits`, `randbytes`)
+whose result flows into a security relevant identifier. Class: Use of
+Cryptographically Weak PRNG, CWE-338, severity high.
+
+Exploitability: `random` is a Mersenne Twister, not a cryptographic generator.
+After observing a few hundred outputs an attacker can recover the internal state
+and predict all future outputs.
+
+```python
+session_token = random.getrandbits(128)   # before
+session_token = secrets.token_hex(16)      # after (import secrets)
+```
+
+### EA003: generator seeded from wall-clock time
+
+Matches `random.seed(time.time())` or seeding from any `time.*` call. This rule
+takes precedence over EA001 because the exploit path is different: the seed is
+not a fixed literal but a small, guessable window. Class: Predictable Seed in
+PRNG, CWE-337, severity high.
+
+Exploitability: seeding from the current time makes the sequence depend only on
+when the program started. The search space is often a few million values across
+a plausible window, so an attacker can brute force the seed offline.
+
