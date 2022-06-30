@@ -369,3 +369,32 @@ rule has non-empty rationale text and that none of it contains an em dash. The
 rationale is treated as part of the rule, not documentation bolted on after, so
 the report can never degrade into a bare checklist.
 
+## Repository layout
+
+```
+EntropyAudit/
+  pyproject.toml            build config, console script, package metadata
+  README.md                 this file
+  CHANGELOG.md              release notes
+  LICENSE                   MIT
+  .gitignore                ignore rules
+  src/EntropyAudit/
+    __init__.py             package marker and __version__
+    __main__.py             entry point so `python -m EntropyAudit` runs
+    cli.py                  argparse subcommands, file walking, exit codes
+    pyscan.py               ast.NodeVisitor walkers that record findings
+    patterns.py             rule definitions: id, title, severity, CWE class
+    context.py              decides whether a call site is security relevant
+    rationale.py            the per rule exploitability explanation text
+    report.py               line oriented, deterministic rendering
+  samples/
+    README.md               describes the two test vectors
+    vulnerable_auth.py      one construct per rule, EA004 twice
+    clean_auth.py           the same work done correctly, zero findings
+  tests/
+    test_entropyaudit.py    stdlib unittest suite
+  docs/assets/
+    logo.svg                the wordmark shown above
+    findings-by-class.svg   the bar chart of findings by class
+```
+
