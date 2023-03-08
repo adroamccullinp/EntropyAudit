@@ -78,3 +78,22 @@ def category_counts(findings: list[Finding]) -> dict[str, int]:
     counter: Counter[str] = Counter()
     for finding in findings:
         rule = patterns.get_rule(finding.rule_id)
+        counter[rule.category] += 1
+    return dict(counter)
+
+
+def _summary_line(findings: list[Finding]) -> str:
+    total = len(findings)
+    if total == 0:
+        return "0 findings"
+    high = sum(
+        1 for f in findings if patterns.get_rule(f.rule_id).severity == "high"
+    )
+    medium = sum(
+        1 for f in findings if patterns.get_rule(f.rule_id).severity == "medium"
+    )
+    low = sum(
+        1 for f in findings if patterns.get_rule(f.rule_id).severity == "low"
+    )
+    noun = "finding" if total == 1 else "findings"
+# review note
