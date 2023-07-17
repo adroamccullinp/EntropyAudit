@@ -26,3 +26,10 @@
   <!-- Heading -->
   <text x="16" y="28"
         font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
+        font-size="16" font-weight="600" fill="#0f172a">Findings by class</text>
+  <text x="16" y="46"
+        font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
+        font-size="12" fill="#475569">Source: entropyaudit report samples. Total 7 findings.</text>
+
+  <!-- Plot area. Bars start at x=248. Scale: each unit = 96px, max value 2. -->
+  <!-- x axis gridline positions: 0 -> 248, 1 -> 344, 2 -> 440 -->
