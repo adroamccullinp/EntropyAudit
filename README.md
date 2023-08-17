@@ -139,3 +139,32 @@ Exploitability: seeding from the current time makes the sequence depend only on
 when the program started. The search space is often a few million values across
 a plausible window, so an attacker can brute force the seed offline.
 
+```python
+random.seed(time.time())          # before
+rng = secrets.SystemRandom()      # after (import secrets)
+```
+
+### EA004: reused nonce or IV bound to a constant
+
+Matches a module-level assignment to a `nonce` or `iv` named target bound to a
+constant `bytes` or `str` literal. `iv` is matched as a whole token so it does
+not fire on words like "give". Class: Reusing a Nonce or Key Pair in Encryption,
+CWE-323, severity high.
+
+Exploitability: a nonce or IV bound to a constant repeats on every encryption.
+For stream ciphers and counter modes, reusing a nonce with the same key lets an
+attacker xor two ciphertexts to cancel the keystream and recover plaintext.
+
+```python
+message_nonce = b"fixed-nonce-value"   # before
+message_nonce = os.urandom(12)         # after (import os)
+```
+
+### EA005: fixed salt used for key derivation or hashing
+
+Matches a `salt` named target bound to a constant literal. Class: Use of a
+One-Way Hash with a Predictable Salt, CWE-760, severity medium.
+
+Exploitability: a fixed salt means identical inputs hash to identical digests
+across all users and installs. An attacker can precompute one rainbow table and
+reuse it everywhere, and identical passwords become visibly identical.
