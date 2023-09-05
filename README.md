@@ -254,3 +254,32 @@ findings by class:
       2  Reusing a Nonce or Key Pair in Encryption
       1  Use of Cryptographically Weak PRNG
       1  Use of Insufficiently Random Values
+      1  Use of Password Hash With Insufficient Computational Effort
+      1  Use of a One-Way Hash with a Predictable Salt
+
+Predictable Seed in PRNG
+    samples/vulnerable_auth.py:18:0 [high] EA003 Generator seeded from wall-clock time
+
+Reusing a Nonce or Key Pair in Encryption
+    samples/vulnerable_auth.py:21:0 [high] EA004 Reused nonce or IV bound to a constant
+    samples/vulnerable_auth.py:24:0 [high] EA004 Reused nonce or IV bound to a constant
+
+Use of Cryptographically Weak PRNG
+    samples/vulnerable_auth.py:33:20 [high] EA002 random module used on a security-relevant path
+
+Use of Insufficiently Random Values
+    samples/vulnerable_auth.py:15:0 [high] EA001 Predictable seed passed to random generator
+
+Use of Password Hash With Insufficient Computational Effort
+    samples/vulnerable_auth.py:39:20 [high] EA006 Weak hash used for password handling
+
+Use of a One-Way Hash with a Predictable Salt
+    samples/vulnerable_auth.py:27:0 [medium] EA005 Fixed salt used for key derivation or hashing
+
+7 findings: 6 high, 1 medium, 0 low
+```
+
+Seven findings across six classes, with the reused nonce or key class carrying
+two. The chart below is drawn from those same counts.
+
+![Bar chart of findings by class. Reusing a nonce or key pair has two findings; the other five classes have one each. Total seven.](docs/assets/findings-by-class.svg)
