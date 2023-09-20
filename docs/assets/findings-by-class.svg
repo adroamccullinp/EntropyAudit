@@ -61,3 +61,9 @@
         font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
         font-size="12" fill="#0f172a">1</text>
 
+  <!-- Row 4: Predictable seed in PRNG, count 1 -->
+  <text x="240" y="194" text-anchor="end"
+        font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
+        font-size="12" fill="#0f172a">Predictable seed in PRNG</text>
+  <rect x="248" y="182" width="96" height="20" rx="3" fill="#475569"/>
+  <text x="352" y="197"
