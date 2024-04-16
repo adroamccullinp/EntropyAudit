@@ -17,3 +17,6 @@
     in amber, split at the compound word boundary.</desc>
 
   <rect x="0" y="0" width="240" height="96" fill="#ffffff"/>
+
+  <text x="16" y="56"
+        font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
