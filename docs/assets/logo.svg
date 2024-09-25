@@ -16,3 +16,6 @@
   <desc>Wordmark reading entropyaudit, with "entropy" in dark ink and "audit"
     in amber, split at the compound word boundary.</desc>
 
+  <rect x="0" y="0" width="240" height="96" fill="#ffffff"/>
+
+  <text x="16" y="56"
