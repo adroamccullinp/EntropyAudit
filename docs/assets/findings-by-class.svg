@@ -33,3 +33,10 @@
 
   <!-- Plot area. Bars start at x=248. Scale: each unit = 96px, max value 2. -->
   <!-- x axis gridline positions: 0 -> 248, 1 -> 344, 2 -> 440 -->
+
+  <!-- Row 1: Reusing a nonce or key pair, count 2 (accent, the worst class) -->
+  <text x="240" y="86" text-anchor="end"
+        font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
+        font-size="12" fill="#0f172a">Nonce or key reuse</text>
+  <rect x="248" y="74" width="192" height="20" rx="3" fill="#b45309"/>
+  <text x="448" y="89"
