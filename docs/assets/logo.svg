@@ -18,3 +18,6 @@
 
   <rect x="0" y="0" width="240" height="96" fill="#ffffff"/>
 
+  <text x="16" y="56"
+        font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
+        font-size="26" font-weight="600" fill="#0f172a">entropy<tspan fill="#b45309">audit</tspan></text>
