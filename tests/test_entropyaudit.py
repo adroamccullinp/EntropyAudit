@@ -163,3 +163,32 @@ class DeterminismTests(unittest.TestCase):
         with redirect_stdout(buffer):
             code = cli.main(["explain", "EA999"])
         self.assertEqual(code, 2)
+
+
+class AssetTests(unittest.TestCase):
+    def _assets(self):
+        assets_dir = os.path.join(_ROOT, "docs", "assets")
+        return [
+            os.path.join(assets_dir, name)
+            for name in sorted(os.listdir(assets_dir))
+            if name.endswith(".svg")
+        ]
+
+    def test_svgs_parse_as_xml(self):
+        assets = self._assets()
+        self.assertTrue(assets, "expected SVG assets under docs/assets")
+        for path in assets:
+            with open(path, "r", encoding="utf-8") as handle:
+                xml.dom.minidom.parseString(handle.read())
+
+    def test_svgs_have_no_forbidden_filters(self):
+        forbidden = ("\u2014", "feGaussianBlur", "feDropShadow", "feTurbulence")
+        for path in self._assets():
+            with open(path, "r", encoding="utf-8") as handle:
+                content = handle.read()
+            for token in forbidden:
+                self.assertNotIn(token, content, f"{token} found in {path}")
+
+
+if __name__ == "__main__":
+    unittest.main()
