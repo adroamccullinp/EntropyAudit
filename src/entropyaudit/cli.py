@@ -124,3 +124,28 @@ def build_parser() -> argparse.ArgumentParser:
     p_scan = sub.add_parser("scan", help="scan a path and print each finding")
     p_scan.add_argument("path", help="file or directory to scan")
     p_scan.set_defaults(func=_cmd_scan)
+
+    p_report = sub.add_parser("report", help="print a grouped report by finding class")
+    p_report.add_argument("path", help="file or directory to scan")
+    p_report.set_defaults(func=_cmd_report)
+
+    p_explain = sub.add_parser("explain", help="explain a rule id, or list all rules")
+    p_explain.add_argument(
+        "rule_id", nargs="?", default=None, help="rule id such as EA002"
+    )
+    p_explain.set_defaults(func=_cmd_explain)
+
+    p_version = sub.add_parser("version", help="print the version")
+    p_version.set_defaults(func=_cmd_version)
+
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    return args.func(args)
+
+
+if __name__ == "__main__":
+# review note
