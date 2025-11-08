@@ -398,3 +398,61 @@ EntropyAudit/
     findings-by-class.svg   the bar chart of findings by class
 ```
 
+## Glossary
+
+| Term       | Meaning in this tool                                                        |
+|------------|------------------------------------------------------------------------------|
+| PRNG       | Pseudo-random number generator. `random` is one; it is not cryptographic.    |
+| CSPRNG     | Cryptographically secure PRNG, such as `secrets` or `os.urandom`.            |
+| Seed       | The starting value of a PRNG. A fixed or guessable seed fixes the sequence.  |
+| Nonce      | A number used once. Reusing one with a key breaks stream and counter modes.  |
+| IV         | Initialization vector. Like a nonce, must be unpredictable and not reused.   |
+| Salt       | Random per-value input to a hash. A fixed salt defeats the point of salting. |
+| Mersenne Twister | The algorithm behind `random`; its state is recoverable from outputs.  |
+| CWE        | Common Weakness Enumeration; the class label attached to each rule.          |
+| Finding    | One detected issue: rule id, path, line, column, and the offending code.     |
+
+## Verification
+
+The test suite uses the standard library `unittest` framework. Run it from the
+project directory:
+
+```
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+```
+
+In this session that run reported:
+
+```
+Ran 23 tests in 0.011s
+
+OK
+```
+
+The 23 tests cover: every rule firing on the vulnerable sample; the total count
+of seven; both EA004 findings; zero findings on the clean sample; that a
+non-security `random.choice` is not flagged; the constant seed, time seed,
+security-named target, fixed salt, constant nonce, weak password hash, and
+`hashlib.new` string forms individually; aliased `import random as rng`; that a
+nonce bound to `None` or a bool is not flagged; that every rule has rationale
+text with no em dash; that `scan` is deterministic across two runs; the exit
+codes for clean, version, and an unknown rule; and that the shipped SVGs parse
+as XML and carry no blur, shadow, or turbulence filters.
+
+## Roadmap
+
+No dates are promised. Possible future work, in rough order of value:
+
+- Track a weak value across a single-function assignment chain to reduce the
+  EA002 false negative on non descriptive names.
+- Fold constants assembled from other module-level constants so EA004 and EA005
+  catch indirect bindings.
+- Add a machine-readable output mode (JSON) alongside the current text views.
+- Allow a per-project allowlist for identifiers that look security relevant but
+  are not.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
+
+<!-- docs pass by georgeoh75609: severity tier examples -->
