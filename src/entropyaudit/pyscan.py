@@ -371,4 +371,4 @@ def _iter_calls(value: ast.AST | None):
         return
     for node in ast.walk(value):
         if isinstance(node, ast.Call):
-# review note
+            yield node
