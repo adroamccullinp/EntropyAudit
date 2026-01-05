@@ -89,3 +89,21 @@ def _split_tokens(identifier: str) -> set[str]:
 
     Handles snake_case and camelCase. "session_ivValue" yields session, iv,
     value.
+    """
+    spaced = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", identifier)
+    spaced = spaced.replace("_", " ")
+    return {w for w in _WORD.findall(spaced.lower())}
+
+
+def any_identifier_security_relevant(identifiers: list[str]) -> bool:
+    """True when any identifier in the list is security relevant."""
+    return any(identifier_is_security_relevant(name) for name in identifiers)
+
+
+def file_handles_secrets(imported_modules: set[str]) -> bool:
+    """True when the file imports a module associated with handling secrets."""
+    for mod in imported_modules:
+        top = mod.split(".")[0]
+        if top in SECURITY_IMPORTS:
+            return True
+    return False
