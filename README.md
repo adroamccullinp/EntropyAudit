@@ -340,3 +340,119 @@ findings, not reordering noise.
 - Static analysis cannot see runtime seeding. EntropyAudit reads the source
   tree; it never executes the code, so a seed computed at runtime from a value
   it cannot fold is invisible to it.
+- It only reads Python. Files are parsed with the stdlib `ast` module, so a
+  weak construct written in another language, or in a string passed to `eval`,
+  is out of scope.
+- It is name and pattern based, not data flow based. A weak value stored under a
+  non descriptive name and later used as a secret is missed by design.
+- Constant detection for nonces, IVs, and salts looks at direct literal
+  bindings. A constant assembled from other constants at runtime is not folded.
+- It reads one file at a time and does not resolve imports across modules.
+- It reports the presence of a risky pattern. It does not prove the code is
+  exploitable in a given deployment.
+
+## Design decisions
+
+Why `ast` rather than regex. A regex over source text cannot tell
+`random.seed(x)` where `random` is the standard library module from a local
+variable named `random`, cannot follow `import random as rng`, and cannot know
+whether `md5(...)` came from `hashlib`. EntropyAudit resolves aliases and
+`from x import y` forms by collecting imports first, then walking the parsed tree
+with `NodeVisitor` subclasses. That is why the aliased-import and
+`hashlib.new("sha1")` cases have real tests: they are exactly the cases a regex
+would get wrong.
+
+Why rationale text is mandatory per rule. A finding that says only "EA338" or
+"CWE-338" gives a reviewer a label, not a decision. The report walks
+`rationale.py`, which holds one explanation per rule id, and a test asserts every
+rule has non-empty rationale text and that none of it contains an em dash. The
+rationale is treated as part of the rule, not documentation bolted on after, so
+the report can never degrade into a bare checklist.
+
+## Repository layout
+
+```
+EntropyAudit/
+  pyproject.toml            build config, console script, package metadata
+  README.md                 this file
+  CHANGELOG.md              release notes
+  LICENSE                   MIT
+  .gitignore                ignore rules
+  src/EntropyAudit/
+    __init__.py             package marker and __version__
+    __main__.py             entry point so `python -m EntropyAudit` runs
+    cli.py                  argparse subcommands, file walking, exit codes
+    pyscan.py               ast.NodeVisitor walkers that record findings
+    patterns.py             rule definitions: id, title, severity, CWE class
+    context.py              decides whether a call site is security relevant
+    rationale.py            the per rule exploitability explanation text
+    report.py               line oriented, deterministic rendering
+  samples/
+    README.md               describes the two test vectors
+    vulnerable_auth.py      one construct per rule, EA004 twice
+    clean_auth.py           the same work done correctly, zero findings
+  tests/
+    test_entropyaudit.py    stdlib unittest suite
+  docs/assets/
+    logo.svg                the wordmark shown above
+    findings-by-class.svg   the bar chart of findings by class
+```
+
+## Glossary
+
+| Term       | Meaning in this tool                                                        |
+|------------|------------------------------------------------------------------------------|
+| PRNG       | Pseudo-random number generator. `random` is one; it is not cryptographic.    |
+| CSPRNG     | Cryptographically secure PRNG, such as `secrets` or `os.urandom`.            |
+| Seed       | The starting value of a PRNG. A fixed or guessable seed fixes the sequence.  |
+| Nonce      | A number used once. Reusing one with a key breaks stream and counter modes.  |
+| IV         | Initialization vector. Like a nonce, must be unpredictable and not reused.   |
+| Salt       | Random per-value input to a hash. A fixed salt defeats the point of salting. |
+| Mersenne Twister | The algorithm behind `random`; its state is recoverable from outputs.  |
+| CWE        | Common Weakness Enumeration; the class label attached to each rule.          |
+| Finding    | One detected issue: rule id, path, line, column, and the offending code.     |
+
+## Verification
+
+The test suite uses the standard library `unittest` framework. Run it from the
+project directory:
+
+```
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+```
+
+In this session that run reported:
+
+```
+Ran 23 tests in 0.011s
+
+OK
+```
+
+The 23 tests cover: every rule firing on the vulnerable sample; the total count
+of seven; both EA004 findings; zero findings on the clean sample; that a
+non-security `random.choice` is not flagged; the constant seed, time seed,
+security-named target, fixed salt, constant nonce, weak password hash, and
+`hashlib.new` string forms individually; aliased `import random as rng`; that a
+nonce bound to `None` or a bool is not flagged; that every rule has rationale
+text with no em dash; that `scan` is deterministic across two runs; the exit
+codes for clean, version, and an unknown rule; and that the shipped SVGs parse
+as XML and carry no blur, shadow, or turbulence filters.
+
+## Roadmap
+
+No dates are promised. Possible future work, in rough order of value:
+
+- Track a weak value across a single-function assignment chain to reduce the
+  EA002 false negative on non descriptive names.
+- Fold constants assembled from other module-level constants so EA004 and EA005
+  catch indirect bindings.
+- Add a machine-readable output mode (JSON) alongside the current text views.
+- Allow a per-project allowlist for identifiers that look security relevant but
+  are not.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
+
+# draft note 2
