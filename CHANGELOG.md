@@ -43,3 +43,10 @@ All notable changes to this project are documented here.
 ### Added
 - First CLI: `entropyaudit scan <tree>` with per-file findings.
 - Shannon entropy scan for literal strings.
+
+## [0.0.1] - 2018-05-14
+
+### Added
+- Prototype: single-file scanner flagging `random.random()` used as a secret.
+
+# draft note 1
