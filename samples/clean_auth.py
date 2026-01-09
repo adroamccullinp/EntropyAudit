@@ -27,3 +27,17 @@ def store_password(password):
     # Correct: a fresh random salt per password and a slow salted hash.
     password_salt = secrets.token_bytes(16)
     password_hash = hashlib.pbkdf2_hmac(
+        "sha256", password.encode("utf-8"), password_salt, 200000
+    )
+    return password_salt, password_hash
+
+
+def pick_greeting():
+    # Non-security use of random is fine and must not be flagged. This name has
+    # no security term and the value never guards access.
+    import random
+
+    greetings = ["hello", "hi", "welcome"]
+    return random.choice(greetings)
+
+# draft note 5
