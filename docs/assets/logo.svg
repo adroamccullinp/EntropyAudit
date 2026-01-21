@@ -20,3 +20,10 @@
 
   <text x="16" y="56"
         font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
+        font-size="26" font-weight="600" fill="#0f172a">entropy<tspan fill="#b45309">audit</tspan></text>
+  <text x="16" y="78"
+        font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
+        font-size="12" fill="#475569">randomness and nonce hygiene, static</text>
+</svg>
+
+# draft note 8
