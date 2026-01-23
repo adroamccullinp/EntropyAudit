@@ -26,3 +26,17 @@ message_nonce = b"fixed-nonce-value"
 # EA005: a fixed salt used for hashing.
 password_salt = b"static-salt-1234"
 
+
+def make_session_token():
+    # EA002: the random module used to build a security token. Predictable
+    # because Mersenne Twister state can be recovered from outputs.
+    session_token = random.getrandbits(128)
+    return session_token
+
+
+def store_password(password):
+    # EA006: a fast hash used for password storage.
+    password_hash = hashlib.md5(password.encode("utf-8")).hexdigest()
+    return password_hash
+
+# draft note 6
