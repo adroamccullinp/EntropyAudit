@@ -81,3 +81,30 @@
 
   <!-- Row 6: Weak password hash, count 1 -->
   <text x="240" y="266" text-anchor="end"
+        font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
+        font-size="12" fill="#0f172a">Weak password hash</text>
+  <rect x="248" y="254" width="96" height="20" rx="3" fill="#475569"/>
+  <text x="352" y="269"
+        font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
+        font-size="12" fill="#0f172a">1</text>
+
+  <!-- X axis line and ticks -->
+  <line x1="248" y1="288" x2="440" y2="288" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="248" y1="288" x2="248" y2="294" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="344" y1="288" x2="344" y2="294" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="440" y1="288" x2="440" y2="294" stroke="#94a3b8" stroke-width="1"/>
+  <text x="248" y="308" text-anchor="middle"
+        font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
+        font-size="11" fill="#475569">0</text>
+  <text x="344" y="308" text-anchor="middle"
+        font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
+        font-size="11" fill="#475569">1</text>
+  <text x="440" y="308" text-anchor="middle"
+        font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
+        font-size="11" fill="#475569">2</text>
+  <text x="344" y="332" text-anchor="middle"
+        font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
+        font-size="12" fill="#0f172a">findings per class (count)</text>
+</svg>
+
+# draft note 7
