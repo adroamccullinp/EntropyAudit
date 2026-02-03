@@ -39,4 +39,4 @@ def store_password(password):
     password_hash = hashlib.md5(password.encode("utf-8")).hexdigest()
     return password_hash
 
-# draft note 6
+# draft note 14
