@@ -96,4 +96,4 @@ def _summary_line(findings: list[Finding]) -> str:
         1 for f in findings if patterns.get_rule(f.rule_id).severity == "low"
     )
     noun = "finding" if total == 1 else "findings"
-# review note
+    return f"{total} {noun}: {high} high, {medium} medium, {low} low"
