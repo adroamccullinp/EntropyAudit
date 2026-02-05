@@ -49,3 +49,13 @@ RATIONALE = {
     "EA006": (
         "Fast hashes such as md5, sha1, and plain sha256 are designed for "
         "speed, so an attacker with the stored digest can try billions of "
+        "password guesses per second on commodity hardware. Password storage "
+        "needs a slow, salted function such as hashlib.scrypt, hashlib.pbkdf2_hmac, "
+        "or a dedicated password hash."
+    ),
+}
+
+
+def explain(rule_id: str) -> str:
+    """Return the rationale text for rule_id, raising KeyError if unknown."""
+    return RATIONALE[rule_id]
