@@ -49,4 +49,4 @@ All notable changes to this project are documented here.
 ### Added
 - Prototype: single-file scanner flagging `random.random()` used as a secret.
 
-# draft note 41
+# draft note 49
