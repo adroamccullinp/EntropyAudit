@@ -40,4 +40,4 @@ def pick_greeting():
     greetings = ["hello", "hi", "welcome"]
     return random.choice(greetings)
 
-# draft note 125
+# draft note 5
