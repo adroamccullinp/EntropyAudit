@@ -38,5 +38,3 @@ def store_password(password):
     # EA006: a fast hash used for password storage.
     password_hash = hashlib.md5(password.encode("utf-8")).hexdigest()
     return password_hash
-
-# draft note 22
