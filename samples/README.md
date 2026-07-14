@@ -24,5 +24,3 @@ and nonces, a fresh per password salt, and `hashlib.pbkdf2_hmac` for password
 storage. It also contains a harmless `random.choice` call for a greeting to
 prove that non-security uses of the random module are not flagged. This file
 must produce zero findings.
-
-# draft note 20
